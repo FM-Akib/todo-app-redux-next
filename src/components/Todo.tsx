@@ -6,7 +6,8 @@ const Todo = () => {
     return (
         <Container>
         <div>
-            <h1 className='text-3xl font-bold  text-slate-700 text-center py-10'>My Todo List</h1>
+            <h1 className='text-3xl font-bold  text-slate-700
+             text-center py-10'>MY TODO LIST</h1>
             <TodoContainer/>
         </div>
         </Container>
