@@ -1,9 +1,13 @@
+"use client";
 import React from 'react';
 import TodoCard from './TodoCard';
 import { Button } from './ui/button';
 import AddTodoModal from './AddTodoModal';
+import { useAppSelector } from '@/redux/hook';
+import { Ttodo } from '@/redux/features/todoSlice';
 
 const TodoContainer = () => {
+     const todos = useAppSelector(state => state.todos.todos);
     return (
         <div>
           <div className="flex justify-between items-center pb-2">
@@ -17,10 +21,16 @@ const TodoContainer = () => {
           <div className="bg-primary-gradient rounded-md p-2 shadow-lg max-h-[500px]
            overflow-y-auto flex flex-col ">
             <div className="bg-white p-3 rounded-md w-full h-full space-y-3">
-            <TodoCard/>
-            <TodoCard/>
-            <TodoCard/>
-            <TodoCard/>
+              {
+                todos?.map((todo:Ttodo) => {
+                  return <TodoCard key={todo.id} todo={todo}/>
+                })
+              }
+              {
+                todos?.length === 0 && <p className='text-center'>No task available</p>
+              }
+            
+        
             </div>
           </div>
         </div>

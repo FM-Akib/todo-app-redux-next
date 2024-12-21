@@ -10,14 +10,23 @@ import {  Dialog,
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
+import { useAppDispatch } from '@/redux/hook';
+import { addTodo } from '@/redux/features/todoSlice';
 
 const AddTodoModal = () => {
     const [task,setTask ] = React.useState('');
     const [description,setDescription ] = React.useState('');
+    const dispatch = useAppDispatch();
     const  onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log({task,description});
-    }
+        const taskDetails = {
+          id: Math.floor(Math.random() * 1000),
+          title : task,
+          description,
+          isCompleted: false,
+        }
+        dispatch(addTodo(taskDetails));
+      }
     return (
         <Dialog>
         <DialogTrigger asChild>
