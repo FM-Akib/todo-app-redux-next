@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // Define a service using a base URL and expected endpoints
 export const baseApi = createApi({
   reducerPath: 'baseApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3005' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://todo-server-beta-five.vercel.app' }),
   //this is a name of cache todo, Ekhane aro tag type add hote pare.
   tagTypes: ['Todo'],
   endpoints: (builder) => ({
