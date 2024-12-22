@@ -44,7 +44,7 @@ const TodoCard = ({todo}:{todo:Ttodo}) => {
         // dispatch(toggleTodo(id));
     }
     return (
-        <div className="flex justify-between items-center p-3 bg-white gap-3 shadow-sm rounded-md border">
+        <div className="flex flex-col md:flex-row items-start justify-between md:items-center p-3 bg-white gap-3 shadow-sm rounded-md border">
         <input type="checkbox"
         name = "isCompleted"
         checked={isCompleted}

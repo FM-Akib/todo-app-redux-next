@@ -7,23 +7,27 @@ import { useGetTodosQuery } from '@/redux/api/api';
 import { FilterTodoModal } from './FilterTodoModal';
 
 const TodoContainer = () => {
-    //* From local state
+  const [priority, setPriority] = React.useState<string>("")
+  
+  
+  
+  
+  //* From local state
     //  const todos = useAppSelector(state => state.todos.todos);
 
     //* From API
-    const {data:todos,isLoading,isError}= useGetTodosQuery(undefined);
+    const {data:todos,isLoading,isError}= useGetTodosQuery(priority);
     // const {data:todos,isLoading,isError}= useGetTodosQuery(undefined,{pollingInterval: 1000});
     //*pollingInterval: 1000 means that the query will be refetched every 1 second
 
     
     if(isLoading) return <p>Loading...</p>;
     if(isError) return <p>Error...</p>;
-    console.log(todos);
     return (
         <div>
           <div className="flex justify-between items-center pb-2">
             <AddTodoModal/>
-            <FilterTodoModal/>
+            <FilterTodoModal priority={priority} setPriority={setPriority}/>
           </div>
           <div className="bg-primary-gradient rounded-md p-2 shadow-lg max-h-[500px]
            overflow-y-auto flex flex-col ">

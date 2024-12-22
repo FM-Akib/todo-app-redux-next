@@ -13,9 +13,13 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 
-export function FilterTodoModal() {
-    const [priority, setPriority] = React.useState<string>("")
-    console.log(priority)
+interface FilterTodoModalProps {
+  priority: string;
+  setPriority: (priority: string) => void;
+}
+
+export function FilterTodoModal({priority, setPriority}: FilterTodoModalProps) {
+    
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

@@ -8,10 +8,19 @@ export const baseApi = createApi({
   tagTypes: ['Todo'],
   endpoints: (builder) => ({
     getTodos: builder.query({
-        query: ()=>({
-            url: '/tasks',
+      //1. url: `/tasks?priority=${priority}`,
+      //2. params: {priority}
+        query: (priority)=>{
+          const params = new URLSearchParams();
+          if(priority){
+            params.append('priority', priority);
+          }
+            return {
+            url: `/tasks`,
             method: 'GET',
-        }),
+            params: params
+            }
+        },
         //providesTags: ['Todo'] means that when this query is called, it will provide the cache with the tag 'Todo'
         providesTags: ['Todo']
     }),
