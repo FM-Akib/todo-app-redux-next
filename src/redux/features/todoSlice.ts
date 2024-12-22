@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 export type Ttodo = {
-    id: number,
+    _id: string,
     title: string,
     description: string,
     isCompleted: boolean,
+    priority: string,
 }
 type Tstate = {
     todos: Ttodo[],
@@ -21,12 +22,12 @@ export const todoSlice = createSlice({
     addTodo: (state, action: PayloadAction<Ttodo>) => {
       state.todos.push(action.payload)
     },
-    deleteTodo: (state, action: PayloadAction<number>) => {
-      state.todos = state.todos.filter(todo => todo.id !== action.payload)
+    deleteTodo: (state, action: PayloadAction<string>) => {
+      state.todos = state.todos.filter(todo => todo._id !== action.payload)
     },
-    toggleTodo: (state, action: PayloadAction<number>) => {
+    toggleTodo: (state, action: PayloadAction<string>) => {
       state.todos = state.todos.map(todo => {
-        if(todo.id === action.payload) {
+        if(todo._id === action.payload) {
           return {
             ...todo,
             isCompleted: !todo.isCompleted

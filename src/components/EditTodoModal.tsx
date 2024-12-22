@@ -10,7 +10,6 @@ import {  Dialog,
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
-import { useAddTodosMutation } from '@/redux/api/api';
 import { Select,
   SelectContent,
   SelectGroup,
@@ -18,43 +17,48 @@ import { Select,
   SelectLabel,
   SelectTrigger,
   SelectValue, } from './ui/select';
+import { Ttodo } from '@/redux/features/todoSlice';
+import { useUpdateTodosMutation } from '@/redux/api/api';
 
-const AddTodoModal = () => {
+const EditTodoModal = ({todo}:{todo:Ttodo}) => {
     const [task,setTask ] = React.useState('');
-    const [description,setDescription ] = React.useState('');
-    const [priority,setPriority ] = React.useState('');
+    const [newDescription,setDescription ] = React.useState('');
+    const [newPriority,setPriority ] = React.useState('');
+    const [updateTodos,{isLoading,isError}]=useUpdateTodosMutation();
+    const {_id,title,description,priority,isCompleted} = todo;
+  
 
-    //! For local state
-    // const dispatch = useAppDispatch();
-    //! For API
-    //* first element is a mutation function 
-    //* and the second element is an object containing the status of the mutation
-    //? [actualFunctionForMutation, {data, error, isLoading, isSuccess, isError}]
-    const [addTodos,{data,isLoading,isError}] = useAddTodosMutation();
-
-   console.log(data,isLoading,isError);
-
+    if(isLoading) return <p>Loading...</p>;
+    if(isError) return <p>Error...</p>;
     const  onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const taskDetails = {
-          title : task,
-          description,
-          isCompleted: false,
-          priority,
+        const options ={
+            id:_id,
+            data: {
+                title : task || title,
+                description: newDescription || description,
+                isCompleted,
+                priority: newPriority || priority,
+              },
         }
-        addTodos(taskDetails);
-      }
+        console.log(options);
+        updateTodos(options);
+        }
     return (
         <Dialog>
         <DialogTrigger asChild>
-         <Button className='bg-primary-gradient text-gray-700'>Add Task</Button>
+             <Button variant="secondary" className='bg-blue-100'>
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+             <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+             </svg>
+             </Button>
         </DialogTrigger>
         
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add Task</DialogTitle>
+            <DialogTitle>Edit Task</DialogTitle>
             <DialogDescription>
-                Fill in the form below to add a new task.
+                Fill in the form below to edit the task.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={onSubmit}>
@@ -66,7 +70,7 @@ const AddTodoModal = () => {
               <Input 
               id="task"
               onBlur={(e) => setTask(e.target.value)}
-               
+               defaultValue={title}
                className="col-span-3" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -76,7 +80,7 @@ const AddTodoModal = () => {
               <Input 
                 onBlur={(e) => setDescription(e.target.value)}
               id="description" 
-              
+              defaultValue={description}
               className="col-span-3" />
             </div> 
 
@@ -84,7 +88,7 @@ const AddTodoModal = () => {
               <Label htmlFor="priority" className="text-right col-span-1 ">
                 Priority
               </Label>
-                <Select onValueChange={(e) => setPriority(e)}>
+                <Select defaultValue={priority} onValueChange={(e) => setPriority(e)}>
                 <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Select Priority" />
                 </SelectTrigger>
@@ -112,4 +116,4 @@ const AddTodoModal = () => {
     );
 };
 
-export default AddTodoModal;
+export default EditTodoModal;
