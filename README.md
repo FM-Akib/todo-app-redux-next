@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ToDo App
 
-## Getting Started
+Live Link: [https://todo-app-ochre-sigma.vercel.app/](https://todo-app-ochre-sigma.vercel.app/)
 
-First, run the development server:
+## Description
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This is a **ToDo App** built using **Next.js**, **Redux**, **Express**, and **MongoDB**. It provides a comprehensive solution for task management, including features such as CRUD operations, task filtering, and state management using Redux and Redux Toolkit. This project allowed me to refine my skills in:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Local state management.
+- API management using Redux and Redux Toolkit.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Add, update, delete, and read tasks.
+- Filter tasks based on priority (Low, Medium, High).
+- Full integration with a MongoDB database for persistent storage.
+- Efficient API management using Redux Toolkit.
+- Seamless user interface built with Next.js.
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js**: Frontend framework for React with server-side rendering.
+- **Redux & Redux Toolkit**: State management library for managing local and global state.
+- **Express**: Backend framework for handling API routes.
+- **MongoDB**: NoSQL database for storing tasks.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Setup Instructions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Prerequisites
 
-## Deploy on Vercel
+- Node.js and npm installed on your system.
+- MongoDB instance running locally or on a cloud service like MongoDB Atlas.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd todo-app
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up the environment variables:
+   Create a `.env.local` file in the root directory and add the following:
+   ```env
+   MONGODB_URI=<your-mongodb-uri>
+   NEXT_PUBLIC_API_URL=<your-api-url>
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   The app will be available at `http://localhost:3000`.
+
+5. Start the Express server:
+   ```bash
+   cd server
+   npm start
+   ```
+   The API will be available at `http://localhost:3005`.
+
+### Deployment
+
+1. Build the app for production:
+   ```bash
+   npm run build
+   ```
+
+2. Deploy the app using Vercel or another hosting provider.
+
+## API Endpoints
+
+### Base URL: `http://localhost:3005`
+
+- **GET /tasks**: Retrieve all tasks.
+- **POST /tasks**: Add a new task.
+- **PUT /tasks/:id**: Update a task by ID.
+- **DELETE /tasks/:id**: Delete a task by ID.
+- **GET /tasks?priority=<priority>**: Filter tasks by priority (low, medium, high).
+
+
+
